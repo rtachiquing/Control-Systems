@@ -68,10 +68,15 @@ print()
 
 print("Unique Roots --> ", end="")
 print(signal.unique_roots(p))
+root, multiplicity = signal.unique_roots(p)
+
 F = []
-for i in range(len(r)):
-    F_fracc = r[i]/(s-p[i]) 
-    F.append(F_fracc)
+for i in range(len(root)):
+    for j in range(multiplicity[i]):
+        F_fracc = r[i]/((s-root[i])**(j+1)) 
+        F.append(F_fracc)
+
+print(F)
 
 t = sympy.symbols('t')
 for i in F:
