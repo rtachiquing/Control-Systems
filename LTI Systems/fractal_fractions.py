@@ -47,6 +47,15 @@ print("CASO 1: ", end="")
 print(r,p,k)
 print()
 
+Fp1 = r[0]/(s-p[0])
+Fp2 = r[1]/(s-p[1])
+F = Fp1 + Fp2
+
+t = sympy.symbols('t')
+f = sympy.inverse_laplace_transform(F, s, t)
+print(f)
+print()
+
 """
 Caso 2: Raíces del denominador son reales y repetidas
 """
