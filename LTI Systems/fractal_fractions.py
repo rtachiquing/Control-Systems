@@ -90,18 +90,22 @@ Caso 3: Raíces del denominador son complejas o imaginarias
 num = [3]
 den = [1, 2, 5, 0]
 r,p,k = signal.residue(num, den)
-print("CASO 3: ", end="")
-print(r,p,k)
 print()
+print("CASO 3: ")
+print(r,p,k)
 
-uniq, mult = signal.unique_roots(p)
-print(uniq, mult, end="")
+root, multiplicity = signal.unique_roots(p)
+print(root, multiplicity)
 
 F = []
-for i in range(len(r)):
-    F_fracc = r[i]/(s-p[i]) 
-    F.append(F_fracc)
+for i in range(len(root)):
+    for j in range(multiplicity[i]):
+        F_fracc = r[i]/((s-root[i])**(j+1)) 
+        F.append(F_fracc)
 
+print(F)
+
+t = sympy.symbols('t')
 for i in F:
     print(sympy.inverse_laplace_transform(i, s, t), end="")
     print(" (+/-) ", end="")
