@@ -156,3 +156,108 @@ f3 = 0.5*t - 0.25 + 0.25*sympy.exp(-2*t)
 plot = sympy.plot(f_original, f2, f3,
                   xlim=(-1, 3), ylim=(0, 1.5), show=False)
 plot.show()
+
+
+"""
+El siguiente ejercicio es:
+    
+             s
+G(s) = -----------------
+        (s + 4) (s + 8)
+        
+
+Respuesta a Escalón Unitari0:
+                s
+C(s) = -------------------
+        s (s + 4) (s + 8)
+
+
+Respuesta a Rampa Unitaria:
+                s
+C(s) = ---------------------
+        s^2 (s + 4) (s + 8)
+    
+
+         1          1                  1
+c(t) = -----  -  ------- e^(-4t) +  ------ e^(-8t)
+        32          16                32
+
+"""
+num = [1, 0]
+den = [1, 12, 32]
+r,p,k = signal.residue(num, den)
+print("CASO 1: ", end="")
+print(r,p,k)
+print("Unique Roots --> ", end="")
+uniq, mult = signal.unique_roots(p)
+print(uniq, mult, end="")
+print()
+
+F = []
+k = 0
+for i in mult:
+    for j in range(i):
+        F_fracc = r[k]/((s-p[k])**(j+1)) 
+        F.append(F_fracc)
+        k += 1
+
+f_impulso = 0
+for i in F:
+    f_impulso += sympy.inverse_laplace_transform(i, s, t)
+
+print(f_impulso)
+
+num = [1, 0]
+den = [1, 12, 32, 0]
+r,p,k = signal.residue(num, den)
+print("CASO 1: ", end="")
+print(r,p,k)
+print("Unique Roots --> ", end="")
+uniq, mult = signal.unique_roots(p)
+print(uniq, mult, end="")
+print()
+
+F = []
+k = 0
+for i in mult:
+    for j in range(i):
+        F_fracc = r[k]/((s-p[k])**(j+1)) 
+        F.append(F_fracc)
+        k += 1
+
+f_escalon = 0
+for i in F:
+    f_escalon += sympy.inverse_laplace_transform(i, s, t)
+
+print(f_escalon)
+
+num = [1, 0]
+den = [1, 12, 32, 0, 0]
+r,p,k = signal.residue(num, den)
+print("CASO 1: ", end="")
+print(r,p,k)
+print("Unique Roots --> ", end="")
+uniq, mult = signal.unique_roots(p)
+print(uniq, mult, end="")
+print()
+
+F = []
+k = 0
+for i in mult:
+    for j in range(i):
+        F_fracc = r[k]/((s-p[k])**(j+1)) 
+        F.append(F_fracc)
+        k += 1
+
+f_rampa = 0
+for i in F:
+    f_rampa += sympy.inverse_laplace_transform(i, s, t)
+
+print(f_rampa)
+
+plot = sympy.plot(f_impulso, f_escalon, f_rampa,
+                  xlim=(-1, 1), ylim=(0, 1), show=False)
+plot[0].line_color = 'red'
+plot[1].line_color = 'orange'
+plot[2].line_color = 'purple'
+plot.show()
