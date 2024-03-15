@@ -71,10 +71,12 @@ print(signal.unique_roots(p))
 root, multiplicity = signal.unique_roots(p)
 
 F = []
-for i in range(len(root)):
-    for j in range(multiplicity[i]):
-        F_fracc = r[i]/((s-root[i])**(j+1)) 
+k = 0
+for i in multiplicity:
+    for j in range(i):
+        F_fracc = r[k]/((s-p[k])**(j+1)) 
         F.append(F_fracc)
+        k += 1
 
 print(F)
 
@@ -98,10 +100,12 @@ root, multiplicity = signal.unique_roots(p)
 print(root, multiplicity)
 
 F = []
-for i in range(len(root)):
-    for j in range(multiplicity[i]):
-        F_fracc = r[i]/((s-root[i])**(j+1)) 
+k = 0
+for i in multiplicity:
+    for j in range(i):
+        F_fracc = r[k]/((s-p[k])**(j+1)) 
         F.append(F_fracc)
+        k += 1
 
 print(F)
 
@@ -110,3 +114,4 @@ for i in F:
     print(sympy.inverse_laplace_transform(i, s, t), end="")
     print(" (+/-) ", end="")
 print()
+
