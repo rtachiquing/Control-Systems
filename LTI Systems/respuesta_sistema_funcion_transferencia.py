@@ -139,8 +139,20 @@ print(f_conv_ramp_unit)
 print()
 
 plot = sympy.plot(f_original, f_conv_impulso, f_conv_esc_unit, f_conv_ramp_unit,
-                  xlim=(-1, 5), ylim=(0, 3), show=False)
+                  xlim=(-1, 3), ylim=(0, 1.5), show=False)
 plot[1].line_color = 'red'
 plot[2].line_color = 'orange'
 plot[3].line_color = 'purple'
+plot.show()
+
+
+"""
+Última muestra mostrando las funciones antes de Cero
+"""
+
+f2 = 0.5 - 0.5*sympy.exp(-2*t)
+f3 = 0.5*t - 0.25 + 0.25*sympy.exp(-2*t) 
+
+plot = sympy.plot(f_original, f2, f3,
+                  xlim=(-1, 3), ylim=(0, 1.5), show=False)
 plot.show()
