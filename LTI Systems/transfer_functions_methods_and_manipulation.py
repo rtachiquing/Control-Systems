@@ -175,6 +175,10 @@ print(-F2)
 """
 Extención del método doit(), kwargs "cancel=True" and "expand=True"
 Returns the resultant transfer function obtained by the feedback interconnection
+
+Use kwarg expand=True to expand the resultant transfer function. 
+Use cancel=True to cancel out the common terms in numerator and denominator.
+
 """
 plant = TransferFunction(3*s**2 + 7*s - 3, s**2 - 4*s + 2, s)
 controller = TransferFunction(5*s - 10, s + 7, s)
