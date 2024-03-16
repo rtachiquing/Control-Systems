@@ -234,7 +234,7 @@ print(f_escalon)
 num = [1, 0]
 den = [1, 12, 32, 0, 0]
 r,p,k = signal.residue(num, den)
-print("CASO 1: ", end="")
+print("CASO 2: ", end="")
 print(r,p,k)
 print("Unique Roots --> ", end="")
 uniq, mult = signal.unique_roots(p)
@@ -257,6 +257,108 @@ print(f_rampa)
 
 plot = sympy.plot(f_impulso, f_escalon, f_rampa,
                   xlim=(-1, 1), ylim=(0, 1), show=False)
+plot[0].line_color = 'red'
+plot[1].line_color = 'orange'
+plot[2].line_color = 'purple'
+plot.show()
+
+
+"""
+El siguiente ejercicio es:
+
+    RLC Circuit [1H , 3 Ohm  , 1/2 F]
+    
+   _____&&&&___WWW___ 
+  I                  I
+ (~)                ---
+  I                 cap
+  I__________________I                        
+     
+             1 / L*C
+G(s) = ----------------------
+        s^2 + s R/L + 1/(L*C)
+
+              2
+G(s) = ---------------
+        s^2 + 3s + 2
+"""
+
+print()
+print("RLC Circuit")
+num = [2]
+den = [1, 3, 2]
+r,p,k = signal.residue(num, den)
+print("CASO 1: ", end="")
+print(r,p,k)
+print("Unique Roots --> ", end="")
+uniq, mult = signal.unique_roots(p)
+print(uniq, mult, end="")
+print()
+
+F = []
+k = 0
+for i in mult:
+    for j in range(i):
+        F_fracc = r[k]/((s-p[k])**(j+1)) 
+        F.append(F_fracc)
+        k += 1
+
+f_impulso = 0
+for i in F:
+    f_impulso += sympy.inverse_laplace_transform(i, s, t)
+
+print(f_impulso)
+
+num = [2]
+den = [1, 3, 2, 0]
+r,p,k = signal.residue(num, den)
+print("CASO 1: ", end="")
+print(r,p,k)
+print("Unique Roots --> ", end="")
+uniq, mult = signal.unique_roots(p)
+print(uniq, mult, end="")
+print()
+
+F = []
+k = 0
+for i in mult:
+    for j in range(i):
+        F_fracc = r[k]/((s-p[k])**(j+1)) 
+        F.append(F_fracc)
+        k += 1
+
+f_escalon = 0
+for i in F:
+    f_escalon += sympy.inverse_laplace_transform(i, s, t)
+
+print(f_escalon)
+
+num = [2]
+den = [1, 3, 2, 0, 0]
+r,p,k = signal.residue(num, den)
+print("CASO 2: ", end="")
+print(r,p,k)
+print("Unique Roots --> ", end="")
+uniq, mult = signal.unique_roots(p)
+print(uniq, mult, end="")
+print()
+
+F = []
+k = 0
+for i in mult:
+    for j in range(i):
+        F_fracc = r[k]/((s-p[k])**(j+1)) 
+        F.append(F_fracc)
+        k += 1
+
+f_rampa = 0
+for i in F:
+    f_rampa += sympy.inverse_laplace_transform(i, s, t)
+
+print(f_rampa)
+
+plot = sympy.plot(f_impulso, f_escalon, f_rampa,
+                  xlim=(-1, 6), ylim=(0, 1.2), show=False)
 plot[0].line_color = 'red'
 plot[1].line_color = 'orange'
 plot[2].line_color = 'purple'
